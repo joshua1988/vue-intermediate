@@ -15,14 +15,6 @@
 <script>
 export default {
   props: ['propsdata'],
-  props: {
-    propsdata: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    }
-  },
   methods: {
     removeTodo: function(todoItem, index) {
       this.$emit('removeItem', todoItem, index);
