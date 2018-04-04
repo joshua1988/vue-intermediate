@@ -49,10 +49,11 @@ li {
   margin-right: 5px;
 }
 .checkBtnCompleted {
-  color: black;
+  color: #b3adad;
 }
 .textCompleted {
   text-decoration: line-through;
+  color: #b3adad;
 }
 .removeBtn {
   margin-left: auto;
