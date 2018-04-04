@@ -61,16 +61,15 @@ li {
 }
 .checkBtn {
   line-height: 45px;
-  /* color: black; */
   color: #62acde;
   margin-right: 5px;
 }
 .checkBtnCompleted {
-  /* color: #62acde; */
-  color: black;
+  color: #b3adad;
 }
 .textCompleted {
   text-decoration: line-through;
+  color: #b3adad;
 }
 .removeBtn {
   margin-left: auto;
