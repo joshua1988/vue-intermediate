@@ -31,7 +31,7 @@ export default {
   methods: {
     addTodo: function() {
       if (this.newTodoItem !== '') {
-        var item = this.newTodoItem.trim();
+        const item = this.newTodoItem.trim();
         this.$emit('addItem', item);
         this.clearInput();
       } else {
