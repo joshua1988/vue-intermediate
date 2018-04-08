@@ -30,7 +30,7 @@ export default {
       localStorage.removeItem(todoItem.item);
     },
     toggleOneItem(todoItem, index) {
-      todoItem.completed = !todoItem.completed;
+      this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
@@ -53,7 +53,7 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter
-  }  
+  }
 }
 </script>
 
