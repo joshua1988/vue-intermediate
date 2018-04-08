@@ -7,9 +7,9 @@
 
     <Modal v-if="showModal" @close="showModal = false">
       <h3 slot="header">
-        경고 
-        <i class="closeModalBtn fa fa-times" 
-          aria-hidden="true" 
+        경고
+        <i class="closeModalBtn fa fa-times"
+          aria-hidden="true"
           @click="showModal = false">
         </i>
       </h3>
@@ -32,7 +32,7 @@ export default {
     addTodo() {
       if (this.newTodoItem !== '') {
         const item = this.newTodoItem.trim();
-        this.$emit('addItem', item);
+        this.$store.commit('addOneItem', item);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
