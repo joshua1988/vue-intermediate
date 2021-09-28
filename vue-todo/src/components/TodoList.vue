@@ -1,14 +1,25 @@
 <template>
-  <div>
+  <section>
     <ul>
-      <li v-for="todoItem in todoItems" v-bind:key="todoItem" class="shadow">
-        {{ todoItem }}
-        <span class="removeBtn" v-on:click="removeTodo">
-          <i class="fas fa-trash-alt"></i>
+      <li
+        v-for="(todoItem, index) in todoItems"
+        class="shadow"
+        v-bind:key="todoItem.item"
+      >
+        <i
+          class="checkBtn fas fa-check"
+          v-bind:class="{ checkBtnCompleted: todoItem.completed }"
+          v-on:click="toggleComplete(todoItem, index)"
+        ></i>
+        <span v-bind:class="{ textCompleted: todoItem.completed }">{{
+          todoItem.item
+        }}</span>
+        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+          <i class="removeBtn fas fa-trash-alt"></i>
         </span>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -19,15 +30,23 @@ export default {
     };
   },
   methods: {
-    removeTodo: function() {}
+    removeTodo: function(todoItem, index) {
+      this.todoItems.splice(index, 1);
+      localStorage.removeItem(todoItem);
+    },
+    toggleComplete: function(todoItem, index) {
+      todoItem.completed = !todoItem.completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    }
   },
   created: function() {
-    //로컬스토리지 데이터가 0 이상이면 즉 로컬스토리지 데이터가 있따면
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-          this.todoItems.push(localStorage.key(i));
-          //console.log(localStorge.key(i));
+          this.todoItems.push(
+            JSON.parse(localStorage.getItem(localStorage.key(i)))
+          );
         }
       }
     }
