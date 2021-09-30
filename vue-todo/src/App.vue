@@ -42,7 +42,7 @@ export default {
   methods: {
     //아래에서 받은 todoItem 즉 인자로 받은거임. 오브젝트 만들고 setItem한거임
     addOnItems: function(todoItem) {
-      var obj = { completed: false, item: todoItem };
+      const obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
@@ -66,7 +66,7 @@ export default {
 
   created: function() {
     if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
+      for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
           this.todoItems.push(
             JSON.parse(localStorage.getItem(localStorage.key(i)))
