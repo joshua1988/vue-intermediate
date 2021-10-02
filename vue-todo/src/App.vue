@@ -34,23 +34,23 @@ import TodoInput from './components/TodoInput.vue';
 // });
 
 export default {
-  data: function() {
+  data() {
     return {
       todoItems: []
     };
   },
   methods: {
     //아래에서 받은 todoItem 즉 인자로 받은거임. 오브젝트 만들고 setItem한거임
-    addOnItems: function(todoItem) {
+    addOnItems(todoItem) {
       const obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    removeOneItem: function(todoItem, index) {
+    removeOneItem(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
     }, //removeOneItem을 받아서 removeOneItem을 실행시키는데 배열은 하나 없애고 로컬 스트리지도 없애는 코드
-    togleOneItem: function(todoItem, index) {
+    togleOneItem(todoItem, index) {
       //todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
 
@@ -58,13 +58,13 @@ export default {
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function() {
+    clearAllItems() {
       localStorage.clear();
       this.todoItems = [];
     }
   },
 
-  created: function() {
+  created() {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
