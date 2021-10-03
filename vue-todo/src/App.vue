@@ -78,11 +78,11 @@ export default {
 
   components: {
     //컴포넌트 태그명: 컴포넌트 내용  --태그명은 내가 임의로 지정 , 컴포넌트 내용은 임포트로 지정한 것
-    TodoHeader: TodoHeader, //TodoHeaer라는 컴포넌트 내용을 들고와서 TodoHeader라는 태그에 박아 넣음
+    TodoHeader, //TodoHeaer라는 컴포넌트 내용을 들고와서 TodoHeader라는 태그에 박아 넣음
     //즉 변수가 컴포넌트에 등록되는 과정
-    TodoList: TodoList,
-    TodoFooter: TodoFooter,
-    TodoInput: TodoInput
+    TodoList,
+    TodoFooter,
+    TodoInput
   }
 };
 </script>
