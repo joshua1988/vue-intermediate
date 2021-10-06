@@ -1,28 +1,27 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo" />
+    <input type="text" v-model="newTodoItem" @keyup.enter="addTodo" />
     <span class="addContainer" v-on:click="addTodo">
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
+
     <Modal v-if="showModal" @close="showModal = false">
-      <!--
-      you can use custom content here to overwrite
-      default content
-    -->
       <h3 slot="header">
-        경고!!
-        <i class="fas fa-times closeModalBtn" @click="showModal = false"></i>
+        경고
+        <i
+          class="closeModalBtn fa fa-times"
+          aria-hidden="true"
+          @click="showModal = false"
+        >
+        </i>
       </h3>
-      <div slot="body">
-        무언가를 입력하세요
-      </div>
+      <p slot="body">할 일을 입력하세요.</p>
     </Modal>
   </div>
 </template>
 
 <script>
 import Modal from './common/Modal.vue';
-
 export default {
   data() {
     return {
@@ -33,7 +32,8 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodoItem !== '') {
-        this.$emit('addTodoItem', this.newTodoItem);
+        const item = this.newTodoItem.trim();
+        this.$store.commit('addOneItem', item);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
@@ -75,6 +75,6 @@ input:focus {
   vertical-align: middle;
 }
 .closeModalBtn {
-  color: #6478fb;
+  color: #42b983;
 }
 </style>
