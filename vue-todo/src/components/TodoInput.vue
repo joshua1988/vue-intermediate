@@ -33,7 +33,7 @@ export default {
     addTodo() {
       if (this.newTodoItem !== '') {
         const item = this.newTodoItem.trim();
-        this.$store.commit('addOneItem', item);
+        this.$emit('addItem', item);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
