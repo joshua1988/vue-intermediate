@@ -1,79 +1,31 @@
 <template>
-  <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem" @keyup.enter="addTodo">
-    <span class="addContainer" v-on:click="addTodo">
-      <i class="addBtn fas fa-plus" aria-hidden="true"></i>
-    </span>
-
-    <Modal v-if="showModal" @close="showModal = false">
-      <h3 slot="header">
-        경고 
-        <i class="closeModalBtn fa fa-times" 
-          aria-hidden="true" 
-          @click="showModal = false">
-        </i>
-      </h3>
-      <p slot="body">할 일을 입력하세요.</p>
-    </Modal>
-  </div>
+    <div>
+        <input type="text" v-model="newTodoItem">
+        <button v-on:click="addTodo">add</button> 
+    </div>
 </template>
 
 <script>
-import Modal from './common/Modal.vue'
-
 export default {
-  data() {
-    return {
-      newTodoItem: '',
-      showModal: false
-    }
-  },
-  methods: {
-    addTodo() {
-      if (this.newTodoItem !== '') {
-        const item = this.newTodoItem.trim();
-        this.$emit('addItem', item);
-        this.clearInput();
-      } else {
-        this.showModal = !this.showModal;
-      }
+    data: function(){
+        return {
+            newTodoItem: ''  // v-model을 통해 input에 입력된 값을 newTodoItem에 바인딩 된다. data 에 선언된 newTodoItem은 input에 입력된 값과 동기화 된다.
+        }
     },
-    clearInput() {
-      this.newTodoItem = '';
+    methods:{
+        addTodo: function(){  // v-on:click="addToto" : click 이벤트가 발생하면 addTodo 메소드를 실행한다.
+        console.log('this.newTodoItem :>> ', this.newTodoItem);
+        // 로컬 스토리지에 저장한다.
+        localStorage.setItem(this.newTodoItem, this.newTodoItem)  // 로컬 스토리지에 저장한다. key, value // localstorage 는 key, value 형태로 저장한다. application tab 에서 확인 가능  
+        this.clearInput();    
+    },
+        clearInput: function(){
+            this.newTodoItem='';// input에 입력된 값을 초기화 한다. input box 초기화
+        }
     }
-  },
-  components: {
-    Modal
-  }
 }
 </script>
 
-<style scoped>
-input:focus {
-  outline: none;
-}
-.inputBox {
-  background: white;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 5px;
-}
-.inputBox input {
-  border-style: none;
-  font-size: 0.9rem;
-}
-.addContainer {
-  float: right;
-  background: linear-gradient(to right, #6478FB, #8763FB);
-  display: block;
-  width: 3rem;
-  border-radius: 0 5px 5px 0;
-}
-.addBtn {
-  color: white;
-  vertical-align: middle;
-}
-.closeModalBtn {
-  color: #42b983;
-}
+<style>
+
 </style>
