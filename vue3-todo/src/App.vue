@@ -1,5 +1,5 @@
-<template>3
-  <TodoHeader></TodoHeader>
+<template>
+  <TodoHeader :appTitle="title"></TodoHeader>
   <!-- <TodoInput @하위컴포넌트 이벤트 이름="상위컴포넌트의 메서드 이름"></TodoInput> -->
   <TodoInput @add="addTodoItem"></TodoInput>
   <!-- <TodoList :프롭스이름="상위 컴포넌트의 데이터이름"></TodoList> -->
@@ -10,7 +10,8 @@
 import TodoHeader from '@/components/TodoHeader.vue';
 import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
-import { ref } from 'vue';
+import { useTodo } from './hooks/useTodo'
+import { onBeforeMount } from 'vue';
 
 export default {
   components: {
@@ -20,34 +21,24 @@ export default {
     TodoList
   },
 
-  // data() {
-  //   return {
-  //     todoItems: []
-  //   }
-  // },
+  data() {
+    return {
+      title: '할일 앱'
+    }
+  },
+  
   setup() {
-    // data
-    const todoItems = ref([]);
+    const {
+      todoItems,
+      addTodoItem,
+      fetchTodos
+    } = useTodo();
 
-    // methods
-    function fetchTodos() {
-      const result = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const todoItem = localStorage.key(i);
-        // items.value.push(todoItem);
-        result.push(todoItem);
-      }
-      return result;
-    }
-    todoItems.value = fetchTodos();
-
-    function addTodoItem(todo) {
-      todoItems.value.push(todo);
-      localStorage.setItem(todo, todo);
-    }
-    
-    // function removeTodoItem() {
-    // }
+    // 라이프 사이클 API
+    onBeforeMount(() => {
+      // console.log('2 : onBeforeMount called')
+      todoItems.value = fetchTodos();
+    })
 
     return { todoItems, addTodoItem }
   },
